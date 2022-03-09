@@ -1,15 +1,10 @@
-# ConfigMap has to be created before Ingress or Ingress
-# settings won't be picked up
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: zingle
 data:
   SCRIPT_FILENAME: "/opt/app-root/src/public/index.php"
-
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
