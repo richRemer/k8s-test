@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zingle
+  labels:
+    app: zingle
+spec:
+  selector:
+    matchLabels:
+      app: zingle
+  template:
+    metadata:
+      labels:
+        app: zingle
+    spec:
+      containers:
+      - name: zingle
+        image: docker.io/library/php_php:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9000

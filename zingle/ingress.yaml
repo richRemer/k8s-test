@@ -1,0 +1,43 @@
+# ConfigMap has to be created before Ingress or Ingress
+# settings won't be picked up
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zingle
+data:
+  SCRIPT_FILENAME: "/opt/app-root/src/public/index.php"
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "FCGI"
+    nginx.ingress.kubernetes.io/fastcgi-index: "index.php"
+    nginx.ingress.kubernetes.io/fastcgi-params-configmap: "zingle"
+  name: zingle
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app.zingle.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: zingle
+            port:
+              name: fastcgi
+  - host: api.zingle.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: zingle
+            port:
+              name: fastcgi
