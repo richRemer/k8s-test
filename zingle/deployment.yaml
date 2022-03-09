@@ -22,6 +22,16 @@ spec:
         volumeMounts:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
+      - name: redis
+        image: redis:5.0.4
+        command: ["redis-server", "/etc/redis/redis.conf"]
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /var/lib/redis
+          name: zingle-redis-data
+        - mountPath: /etc/redis
+          name: zingle-redis-conf
       initContainers:
       - name: zingle-verify-perms
         image: docker.io/library/php_php:latest
@@ -33,3 +43,11 @@ spec:
       volumes:
       - name: zingle-cache
         emptyDir: {}
+      - name: zingle-redis-data
+        emptyDir: {}
+      - name: zingle-redis-conf
+        configMap:
+          name: redis-conf
+          items:
+          - key: redis-conf
+            path: redis.conf
