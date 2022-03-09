@@ -19,8 +19,17 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 9000
+        volumeMounts:
+        - name: zingle-cache
+          mountPath: /opt/app-root/src/bootstrap/cache
       initContainers:
-      - name: zingle-perms
+      - name: zingle-verify-perms
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["sh", "-c", "chmod -R g+ws /opt/app-root/src/bootstrap/cache"]
+        command: ["sh", "-c", "ls -lad /opt/app-root/src/bootstrap/cache"]
+        volumeMounts:
+        - name: zingle-cache
+          mountPath: /opt/app-root/src/bootstrap/cache
+      volumes:
+      - name: zingle-cache
+        emptyDir: {}
