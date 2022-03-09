@@ -20,11 +20,7 @@ spec:
         ports:
         - containerPort: 9000
       initContainers:
-      - name: init-zingle-perms
+      - name: zingle-perms
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["sh", "-c", "ls -ald /opt/app-root/src/bootstrap/cache"]
-      - name: init-zingle-user
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["sh", "-c", "id -u default; id -g default"]
+        command: ["sh", "-c", "chmod -R g+ws /opt/app-root/src/bootstrap/cache"]
