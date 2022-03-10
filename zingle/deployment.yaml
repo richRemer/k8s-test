@@ -22,6 +22,31 @@ spec:
         volumeMounts:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
+      initContainers:
+      - name: zingle-verify-host-entry
+        image: docker.io/library/php_php:latest
+        imagePullPolicy: Never
+        command: ["sh", "-c", "cat /etc/hosts; echo; echo redis; getent hosts redis; echo zingle; getent hosts zingle"]
+      volumes:
+      - name: zingle-cache
+        emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: zingle
+spec:
+  selector:
+    matchLabels:
+      app: zingle
+  template:
+    metadata:
+      labels:
+        app: zingle
+    spec:
+      containers:
       - name: redis
         image: redis:5.0.4
         command: ["redis-server", "/etc/redis/redis.conf"]
@@ -32,14 +57,7 @@ spec:
           name: zingle-redis-data
         - mountPath: /etc/redis
           name: zingle-redis-conf
-      initContainers:
-      - name: zingle-verify-host-entry
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["sh", "-c", "cat /etc/hosts; echo; echo redis; getent hosts redis; echo zingle; getent hosts zingle"]
       volumes:
-      - name: zingle-cache
-        emptyDir: {}
       - name: zingle-redis-data
         emptyDir: {}
       - name: zingle-redis-conf
