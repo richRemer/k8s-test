@@ -22,6 +22,8 @@ spec:
         volumeMounts:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
+        - name: zingle-storage
+          mountPath: /opt/app-root/src/storage
       initContainers:
       - name: zingle-wait-for-redis
         image: docker.io/library/php_php:latest
@@ -29,6 +31,8 @@ spec:
         command: ["sh", "-c", "while ! wget -qO- http://redis:6379/ | grep -q ^-ERR; do sleep 1; done"]
       volumes:
       - name: zingle-cache
+        emptyDir: {}
+      - name: zingle-storage
         emptyDir: {}
 ---
 apiVersion: apps/v1
