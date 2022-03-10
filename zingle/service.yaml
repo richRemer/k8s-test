@@ -4,7 +4,7 @@ metadata:
   name: zingle
 spec:
   selector:
-    app: zingle
+    app: zingle-minimal
   ports:
   - port: 9000
     targetPort: 9000

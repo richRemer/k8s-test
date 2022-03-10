@@ -3,15 +3,15 @@ kind: Deployment
 metadata:
   name: zingle
   labels:
-    app: zingle
+    app: zingle-minimal
 spec:
   selector:
     matchLabels:
-      app: zingle
+      app: zingle-minimal
   template:
     metadata:
       labels:
-        app: zingle
+        app: zingle-minimal
     spec:
       containers:
       - name: zingle
@@ -36,15 +36,15 @@ kind: Deployment
 metadata:
   name: redis
   labels:
-    app: zingle
+    app: zingle-minimal
 spec:
   selector:
     matchLabels:
-      app: zingle
+      app: zingle-minimal
   template:
     metadata:
       labels:
-        app: zingle
+        app: zingle-minimal
     spec:
       containers:
       - name: redis
