@@ -36,7 +36,7 @@ spec:
       - name: zingle-verify-host-entry
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["sh", "-c", "cat /etc/hosts; getent hosts redis; echo hosted"]
+        command: ["sh", "-c", "getent hosts redis; getent hosts zingle"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
