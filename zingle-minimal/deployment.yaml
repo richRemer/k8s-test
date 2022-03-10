@@ -22,7 +22,7 @@ spec:
         volumeMounts:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
-        - name: zingle-storage
+        - name: zingle-views
           mountPath: /opt/app-root/src/storage/framework/views
       initContainers:
       - name: zingle-wait-for-redis
