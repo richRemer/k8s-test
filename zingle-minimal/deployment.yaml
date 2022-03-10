@@ -25,6 +25,10 @@ spec:
         - name: zingle-storage
           mountPath: /opt/app-root/src/storage
       initContainers:
+      - name: zingle-mkdirs
+        image: docker.io/library/php_php:latest
+        imagePullPolicy: Never
+        command: ["sh", "-c", "cd /opt/app-root/src/storage; mkdir -p framework/views"]
       - name: zingle-wait-for-redis
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
