@@ -23,24 +23,16 @@ spec:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
         - name: zingle-storage
-          mountPath: /opt/app-root/src/storage
+          mountPath: /opt/app-root/src/storage/framework/views
       initContainers:
-      - name: zingle-mkdirs
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["sh", "-c", "cd /opt/app-root/src/storage; mkdir -p framework/views"]
       - name: zingle-wait-for-redis
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
         command: ["sh", "-c", "while ! wget -qO- http://redis:6379/ | grep -q ^-ERR; do sleep 1; done"]
-      - name: zingle-verify-storage
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["sh", "-c", "ls -lad /opt/app-root/src/storage"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
-      - name: zingle-storage
+      - name: zingle-views
         emptyDir: {}
 ---
 apiVersion: apps/v1
