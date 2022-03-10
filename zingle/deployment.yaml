@@ -57,6 +57,11 @@ spec:
           name: zingle-redis-data
         - mountPath: /etc/redis
           name: zingle-redis-conf
+      initContainers:
+      - name: redis-verify-host-entry
+        image: docker.io/library/php_php:latest
+        imagePullPolicy: Never
+        command: ["sh", "-c", "echo; echo redis; getent hosts redis; echo zingle; getent hosts zingle"]
       volumes:
       - name: zingle-redis-data
         emptyDir: {}
