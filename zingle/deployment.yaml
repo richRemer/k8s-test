@@ -33,14 +33,10 @@ spec:
         - mountPath: /etc/redis
           name: zingle-redis-conf
       initContainers:
-      - name: zingle-host-entries
+      - name: zingle-verify-host-entry
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["sh", "-c", "echo 127.0.0.1 redis api.zingle.me app.zingle.me >> /etc/hosts"]
-      - name: zingle-verify-host-entries
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["cat", "/etc/hosts"]
+        command: ["getent", "hosts", "redis"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
