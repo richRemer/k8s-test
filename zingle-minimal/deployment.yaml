@@ -23,10 +23,10 @@ spec:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
       initContainers:
-      - name: zingle-verify-host-entry
+      - name: zingle-wait-for-redis
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["sh", "-c", "cat /etc/hosts; echo; echo redis; getent hosts redis; echo zingle; getent hosts zingle"]
+        command: ["sh", "-c", "while ! wget -qO- http://redis:6379/ | grep -q ^-ERR; do sleep 1; done"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
@@ -57,11 +57,6 @@ spec:
           name: zingle-redis-data
         - mountPath: /etc/redis
           name: zingle-redis-conf
-      initContainers:
-      - name: redis-verify-host-entry
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["sh", "-c", "echo; echo redis; getent hosts redis; echo zingle; getent hosts zingle"]
       volumes:
       - name: zingle-redis-data
         emptyDir: {}
