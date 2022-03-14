@@ -28,6 +28,9 @@ spec:
       - name: zingle-wait-for-redis
         image: tutum/dnsutils
         command: ["sh", "-c", "while ! nc -z redis 6379; do echo waiting for redis; sleep 1; done; echo redis is up"]
+      - name: zingle-wait-for-maria
+        image: tutum/dnsutils
+        command: ["sh", "-c", "while ! nc -z maria 3306; do echo waiting for maria; sleep 1; done; echo maria is up"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
