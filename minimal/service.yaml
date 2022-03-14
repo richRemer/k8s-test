@@ -4,7 +4,7 @@ metadata:
   name: zingle
 spec:
   selector:
-    app: zingle-minimal
+    app: minimal
   ports:
   - port: 9000
     targetPort: 9000
@@ -16,7 +16,7 @@ metadata:
   name: redis
 spec:
   selector:
-    app: zingle-minimal
+    app: minimal
   ports:
   - port: 6379
     targetPort: 6379
@@ -27,7 +27,7 @@ metadata:
   name: maria
 spec:
   selector:
-    app: zingle-minimal
+    app: minimal
   ports:
   - port: 3306
     targetPort: 3306
@@ -38,7 +38,7 @@ metadata:
   name: elastic7
 spec:
   selector:
-    app: zingle-minimal
+    app: minimal
   ports:
   - port: 9200
     targetPort: 9200
