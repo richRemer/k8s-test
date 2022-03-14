@@ -88,7 +88,6 @@ spec:
       containers:
       - name: maria
         image: mariadb:10.7.3
-        command: ["redis-server", "/etc/redis/redis.conf"]
         ports:
         - containerPort: 6379
         volumeMounts:
