@@ -26,9 +26,8 @@ spec:
           mountPath: /opt/app-root/src/storage/framework/views
       initContainers:
       - name: zingle-wait-for-redis
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["sh", "-c", "while ! wget -qO- http://redis:6379/ | grep -q ^-ERR; do sleep 1; done"]
+        image: alpine
+        command: ["sh", "-c", "while ! nc -z redis 6379; do sleep 1; done"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
