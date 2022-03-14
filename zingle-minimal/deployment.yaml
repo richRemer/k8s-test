@@ -135,4 +135,4 @@ spec:
         - name: discovery.type
           value: single-node
         - name: node.store.allow_mmap
-          value: false
+          value:
