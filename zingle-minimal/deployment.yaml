@@ -34,26 +34,13 @@ spec:
       - name: zingle-wait-for-elastic7
         image: tutum/dnsutils
         command: ["sh", "-c", "while ! nc -z elastic7 9200; do echo waiting for elastic7; sleep 1; done; echo elastic7 is up"]
-      - name: zingle-feed-map
+      - name: zingle-map-elastic7
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["artisan", "elastic:assert-index", "feed"]
-      - name: zingle-event-map
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["artisan", "elastic:assert-index", "event"]
-      - name: zingle-service-map
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["artisan", "elastic:assert-index", "service"]
-      - name: zingle-contact-log-map
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["artisan", "elastic:assert-index", "contact-log"]
-      - name: zingle-contact-log-header-map
-        image: docker.io/library/php_php:latest
-        imagePullPolicy: Never
-        command: ["artisan", "elastic:assert-index", "contact-log-header"]
+        command: ["sh", "-ec", "for doc in feed event service contact-log contact-log-header; do elastic:assert-index $doc; done"]
+        volumeMounts:
+        - name: zingle-cache
+          mountPath: /opt/app-root/src/bootstrap/cache
       volumes:
       - name: zingle-cache
         emptyDir: {}
