@@ -37,7 +37,7 @@ spec:
       - name: zingle-map-elastic7
         image: docker.io/library/php_php:latest
         imagePullPolicy: Never
-        command: ["sh", "-ec", "for doc in feed event service contact-log contact-log-header; do elastic:assert-index $doc; done"]
+        command: ["sh", "-ec", "for doc in feed event service contact-log contact-log-header; do artisan elastic:assert-index $doc; done"]
         volumeMounts:
         - name: zingle-cache
           mountPath: /opt/app-root/src/bootstrap/cache
