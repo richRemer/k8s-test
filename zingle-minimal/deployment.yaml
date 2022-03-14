@@ -130,3 +130,7 @@ spec:
         image: elasticsearch:7.17.1
         ports:
         - containerPort: 9200
+        - containerPort: 9300
+        env:
+          discovery.type: single-node
+          node.store.allow_mmap: false
