@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smtpd-conf
+data:
+  smtpd-conf: |
+    {
+      "http": {
+        "user": "smtpadmin",
+        "pass": "sekret"
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smtpd
+  labels:
+    app: minimal
+spec:
+  selector:
+    matchLabels:
+      app: minimal
+  template:
+    metadata:
+      labels:
+        app: minimal
+    spec:
+      containers:
+      - name: smtpd
+        image: docker.io/library/smtpd:latest
+        imagePullPolicy: Never
+        command: ["smtpd", "/etc/smtpd/smtpd.conf"]
+        ports:
+        - containerPort: 25
+        - containerPort: 2500
+        volumeMounts:
+        - name: zingle-smtpd-data
+          mountPath: /var/lib/smtpd
+        - name: zingle-smtpd-conf
+          mountPath: /etc/smtpd
+      volumes:
+      - name: zingle-smtpd-data
+        emptyDir: {}
+      - name: zingle-smtpd-conf
+        configMap:
+          name: smtpd-conf
+          items:
+          - key: smtpd-conf
+            path: smtpd.conf
