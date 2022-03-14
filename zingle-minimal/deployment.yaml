@@ -132,5 +132,7 @@ spec:
         - containerPort: 9200
         - containerPort: 9300
         env:
-          discovery.type: single-node
-          node.store.allow_mmap: false
+        - name: discovery.type
+          value: single-node
+        - name: node.store.allow_mmap
+          value: false
