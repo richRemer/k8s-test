@@ -26,7 +26,7 @@ spec:
           mountPath: /opt/app-root/src/storage/framework/views
       initContainers:
       - name: zingle-wait-for-redis
-        image: alpine
+        image: tutum/dnsutils
         command: ["sh", "-c", "while ! nc -z redis 6379; do sleep 1; done"]
       volumes:
       - name: zingle-cache
