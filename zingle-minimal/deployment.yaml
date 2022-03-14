@@ -69,3 +69,38 @@ spec:
           items:
           - key: redis-conf
             path: redis.conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maria
+  labels:
+    app: zingle-minimal
+spec:
+  selector:
+    matchLabels:
+      app: zingle-minimal
+  template:
+    metadata:
+      labels:
+        app: zingle-minimal
+    spec:
+      containers:
+      - name: maria
+        image: mariadb:10.7.3
+        command: ["redis-server", "/etc/redis/redis.conf"]
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: zingle-maria-data
+        - mountPath: /var/log/mysql
+          name: zingle-maria-logs
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          value: zingle
+      volumes:
+      - name: zingle-maria-data
+        emptyDir: {}
+      - name: zingle-maria-logs
+        emptyDir: {}
