@@ -40,5 +40,5 @@ spec:
   selector:
     app: zingle-minimal
   ports:
-  - port: 3306
-    targetPort: 3306
+  - port: 9200
+    targetPort: 9200

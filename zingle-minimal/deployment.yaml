@@ -31,9 +31,9 @@ spec:
       - name: zingle-wait-for-maria
         image: tutum/dnsutils
         command: ["sh", "-c", "while ! nc -z maria 3306; do echo waiting for maria; sleep 1; done; echo maria is up"]
-      - name: zingle-wait-for-es
+      - name: zingle-wait-for-elastic7
         image: tutum/dnsutils
-        command: ["sh", "-c", "while ! nc -z elastic7 3306; do echo waiting for es; sleep 1; done; echo es is up"]
+        command: ["sh", "-c", "while ! nc -z elastic7 9200; do echo waiting for elastic7; sleep 1; done; echo elastic7 is up"]
       volumes:
       - name: zingle-cache
         emptyDir: {}
@@ -113,7 +113,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: es
+  name: elastic7
   labels:
     app: zingle-minimal
 spec:
@@ -126,7 +126,7 @@ spec:
         app: zingle-minimal
     spec:
       containers:
-      - name: es
+      - name: elastic7
         image: elasticsearch:7.17.1
         ports:
         - containerPort: 9200
