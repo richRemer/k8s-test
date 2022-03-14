@@ -16,15 +16,15 @@ kind: Deployment
 metadata:
   name: smtpd
   labels:
-    app: minimal
+    app: zingle
 spec:
   selector:
     matchLabels:
-      app: minimal
+      app: zingle
   template:
     metadata:
       labels:
-        app: minimal
+        app: zingle
     spec:
       containers:
       - name: smtpd

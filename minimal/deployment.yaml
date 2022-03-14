@@ -3,15 +3,15 @@ kind: Deployment
 metadata:
   name: zingle
   labels:
-    app: minimal
+    app: zingle
 spec:
   selector:
     matchLabels:
-      app: minimal
+      app: zingle
   template:
     metadata:
       labels:
-        app: minimal
+        app: zingle
     spec:
       containers:
       - name: zingle
@@ -52,15 +52,15 @@ kind: Deployment
 metadata:
   name: redis
   labels:
-    app: minimal
+    app: zingle
 spec:
   selector:
     matchLabels:
-      app: minimal
+      app: zingle
   template:
     metadata:
       labels:
-        app: minimal
+        app: zingle
     spec:
       containers:
       - name: redis
@@ -88,15 +88,15 @@ kind: Deployment
 metadata:
   name: maria
   labels:
-    app: minimal
+    app: zingle
 spec:
   selector:
     matchLabels:
-      app: minimal
+      app: zingle
   template:
     metadata:
       labels:
-        app: minimal
+        app: zingle
     spec:
       containers:
       - name: maria
@@ -122,15 +122,15 @@ kind: Deployment
 metadata:
   name: elastic7
   labels:
-    app: minimal
+    app: zingle
 spec:
   selector:
     matchLabels:
-      app: minimal
+      app: zingle
   template:
     metadata:
       labels:
-        app: minimal
+        app: zingle
     spec:
       containers:
       - name: elastic7
