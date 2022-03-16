@@ -12,6 +12,17 @@ if (!socket_connect(\$socket, "redis", 6379)) {
   exit(1);
 }
 
-socket_write(\$socket, "SET testkey testval\n");
-sleep(1);
-echo socket_read(\$socket, 1024, PHP_NORMAL_READ);
+switch (\$argv[1]) {
+  case "read":
+    socket_write(\$socket, "GET testkey\n");
+    sleep(0.5);
+    echo socket_read(\$socket, 1024, PHP_NORMAL_READ);
+    break;
+  case "write":
+    socket_write(\$socket, "SET testkey scriptval\n");
+    sleep(0.5);
+    echo socket_read(\$socket, 1024, PHP_NORMAL_READ);
+    break;
+  default:
+    echo "did nothing\n";
+}
